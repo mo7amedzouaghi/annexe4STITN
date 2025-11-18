@@ -1,0 +1,92 @@
+{
+    "HTML5": {
+      "Éléments de 1er niveau": [
+        {
+          "balise": "<html>",
+          "définition": "Représente la racine d’un document HTML."
+        },
+        {
+          "balise": "<head>",
+          "définition": "Conteneur de métadonnées placé entre la balise <html> et la balise <body>."
+        },
+        {
+          "balise": "<body>",
+          "définition": "Définit le corps du document."
+        }
+      ],
+      "Éléments d'en-tête": [
+        {
+          "balise": "<link>",
+          "définition": "Définit la relation entre le document actuel et une ressource externe.",
+          "attributs": ["href", "rel", "type"]
+        },
+        {
+          "balise": "<meta>",
+          "définition": "Définit les métadonnées du document.",
+          "attributs": ["charset", "name", "content"]
+        },
+        {
+          "balise": "<script>",
+          "définition": "Intègre un script côté client (JavaScript).",
+          "attributs": ["src", "type"]
+        },
+        {
+          "balise": "<style>",
+          "définition": "Définit les informations de style (CSS) pour un document.",
+          "attributs": ["type", "media"]
+        },
+        {
+          "balise": "<title>",
+          "définition": "Définit le titre du document."
+        }
+      ]
+    },
+    "CSS3": {
+      "Sélecteurs": [
+        {
+          "sélecteur": "element",
+          "définition": "Sélectionne tous les éléments de type *element*."
+        },
+        {
+          "sélecteur": "#id",
+          "définition": "Cible un élément en fonction de la valeur de son attribut *id*."
+        }
+      ]
+    },
+    "JavaScript": {
+      "Opérateurs logiques": [
+        {
+          "opérateur": "&&",
+          "définition": "ET logique."
+        },
+        {
+          "opérateur": "||",
+          "définition": "OU logique."
+        }
+      ]
+    },
+    "PHP": {
+      "Types d'objets": [
+        {
+          "type": "int",
+          "définition": "Entier."
+        },
+        {
+          "type": "float",
+          "définition": "Réel."
+        }
+      ]
+    },
+    "SQL": {
+      "Types de données": [
+        {
+          "type": "INT",
+          "définition": "Entier."
+        },
+        {
+          "type": "DECIMAL",
+          "définition": "Réel."
+        }
+      ]
+    }
+  }
