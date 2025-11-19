@@ -1,0 +1,312 @@
+{
+  "Types de données": [
+    {
+      "type": "INT",
+      "définition": "Entier.",
+      "exemple": "CREATE TABLE etudiants (\n  id INT,\n  age INT\n);"
+    },
+    {
+      "type": "DECIMAL",
+      "définition": "Réel.",
+      "exemple": "CREATE TABLE produits (\n  prix DECIMAL(10, 2),\n  poids DECIMAL(5, 3)\n);"
+    },
+    {
+      "type": "CHAR",
+      "définition": "Chaîne de caractères de longueur fixe.",
+      "exemple": "CREATE TABLE personnes (\n  code_postal CHAR(4),\n  sexe CHAR(1)\n);"
+    },
+    {
+      "type": "VARCHAR",
+      "définition": "Chaîne de caractères de longueur variable dont la longueur maximale est fixée.",
+      "exemple": "CREATE TABLE utilisateurs (\n  nom VARCHAR(50),\n  email VARCHAR(100)\n);"
+    },
+    {
+      "type": "TEXT",
+      "définition": "Chaîne de caractères de longueur variable.",
+      "exemple": "CREATE TABLE articles (\n  titre VARCHAR(200),\n  contenu TEXT\n);"
+    },
+    {
+      "type": "DATE",
+      "définition": "Date.",
+      "exemple": "CREATE TABLE evenements (\n  date_debut DATE,\n  date_fin DATE\n);\nINSERT INTO evenements VALUES ('2024-11-19', '2024-11-20');"
+    },
+    {
+      "type": "TIME",
+      "définition": "Temps.",
+      "exemple": "CREATE TABLE horaires (\n  heure_debut TIME,\n  heure_fin TIME\n);\nINSERT INTO horaires VALUES ('08:30:00', '17:00:00');"
+    },
+    {
+      "type": "DATETIME",
+      "définition": "Date et Heure.",
+      "exemple": "CREATE TABLE commandes (\n  date_commande DATETIME\n);\nINSERT INTO commandes VALUES ('2024-11-19 14:30:00');"
+    }
+  ],
+  "Opérateurs de comparaison": [
+    {
+      "opérateur": "=",
+      "définition": "Égale à.",
+      "exemple": "SELECT * FROM etudiants\nWHERE age = 20;"
+    },
+    {
+      "opérateur": "<>",
+      "définition": "Différent de.",
+      "exemple": "SELECT * FROM produits\nWHERE categorie <> 'Alimentaire';"
+    },
+    {
+      "opérateur": ">",
+      "définition": "Supérieur à.",
+      "exemple": "SELECT * FROM etudiants\nWHERE note > 15;"
+    },
+    {
+      "opérateur": "<",
+      "définition": "Inférieur à.",
+      "exemple": "SELECT * FROM produits\nWHERE prix < 50;"
+    },
+    {
+      "opérateur": ">=",
+      "définition": "Supérieur ou égal à.",
+      "exemple": "SELECT * FROM etudiants\nWHERE age >= 18;"
+    },
+    {
+      "opérateur": "<=",
+      "définition": "Inférieur ou égal à.",
+      "exemple": "SELECT * FROM commandes\nWHERE montant <= 100;"
+    },
+    {
+      "opérateur": "IN",
+      "définition": "Dans.",
+      "exemple": "SELECT * FROM etudiants\nWHERE ville IN ('Tunis', 'Sousse', 'Sfax');"
+    },
+    {
+      "opérateur": "BETWEEN",
+      "définition": "Entre deux valeurs d'un intervalle.",
+      "exemple": "SELECT * FROM produits\nWHERE prix BETWEEN 20 AND 50;"
+    },
+    {
+      "opérateur": "LIKE",
+      "définition": "Recherche de motif/valeur.",
+      "exemple": "SELECT * FROM etudiants\nWHERE nom LIKE 'Ben%';\n-- Commence par 'Ben'\nSELECT * FROM etudiants\nWHERE nom LIKE '%Ali%';\n-- Contient 'Ali'"
+    },
+    {
+      "opérateur": "IS NULL",
+      "définition": "Filtre les résultats contenant la valeur NULL.",
+      "exemple": "SELECT * FROM etudiants\nWHERE email IS NULL;"
+    }
+  ],
+  "Opérateurs logiques": [
+    {
+      "opérateur": "AND",
+      "définition": "ET.",
+      "exemple": "SELECT * FROM etudiants\nWHERE age >= 18 AND ville = 'Tunis';"
+    },
+    {
+      "opérateur": "OR",
+      "définition": "OU.",
+      "exemple": "SELECT * FROM produits\nWHERE categorie = 'Électronique' OR categorie = 'Informatique';"
+    },
+    {
+      "opérateur": "NOT",
+      "définition": "NON.",
+      "exemple": "SELECT * FROM etudiants\nWHERE NOT ville = 'Tunis';"
+    }
+  ],
+  "Fonctions définies sur le type date": [
+    {
+      "fonction": "DATE()",
+      "définition": "Retourne une date extraite à partir d'une chaîne contenant une valeur au format DATE ou DATETIME.",
+      "exemple": "SELECT DATE(date_commande) FROM commandes;"
+    },
+    {
+      "fonction": "DAY()",
+      "définition": "Retourne le jour.",
+      "exemple": "SELECT nom, DAY(date_naissance) FROM etudiants;"
+    },
+    {
+      "fonction": "MONTH()",
+      "définition": "Retourne le mois.",
+      "exemple": "SELECT * FROM commandes\nWHERE MONTH(date_commande) = 11;"
+    },
+    {
+      "fonction": "YEAR()",
+      "définition": "Retourne l'année.",
+      "exemple": "SELECT * FROM etudiants\nWHERE YEAR(date_naissance) = 2000;"
+    },
+    {
+      "fonction": "NOW()",
+      "définition": "Retourne la date et l'heure courantes.",
+      "exemple": "INSERT INTO logs (message, date_log)\nVALUES ('Connexion', NOW());"
+    },
+    {
+      "fonction": "ADDDATE()",
+      "définition": "Ajoute un nombre de jours ou un intervalle de temps à une date.",
+      "exemple": "SELECT ADDDATE(date_commande, 30) AS date_livraison\nFROM commandes;"
+    },
+    {
+      "fonction": "DATEDIFF()",
+      "définition": "Retourne la différence entre deux dates en jours.",
+      "exemple": "SELECT DATEDIFF(date_fin, date_debut) AS duree\nFROM projets;"
+    }
+  ],
+  "Fonctions d'agrégation": [
+    {
+      "fonction": "AVG()",
+      "définition": "Retourne la moyenne.",
+      "exemple": "SELECT AVG(note) AS moyenne FROM etudiants;"
+    },
+    {
+      "fonction": "COUNT()",
+      "définition": "Retourne le nombre d'enregistrements.",
+      "exemple": "SELECT COUNT(*) AS nombre_etudiants FROM etudiants;\nSELECT COUNT(DISTINCT ville) FROM etudiants;"
+    },
+    {
+      "fonction": "MAX()",
+      "définition": "Retourne le maximum.",
+      "exemple": "SELECT MAX(prix) AS prix_max FROM produits;"
+    },
+    {
+      "fonction": "MIN()",
+      "définition": "Retourne le minimum.",
+      "exemple": "SELECT MIN(age) AS age_min FROM etudiants;"
+    },
+    {
+      "fonction": "SUM()",
+      "définition": "Retourne la somme.",
+      "exemple": "SELECT SUM(quantite) AS total FROM ventes;"
+    }
+  ],
+  "Manipulation des données": [
+    {
+      "commande": "SELECT",
+      "définition": "Spécification des colonnes du résultat.",
+      "syntaxe": "SELECT [DISTINCT] expression [, col, ... ou *] [[AS] alias] FROM table1 [[AS] alias] [, table2, ...] [WHERE condition] [GROUP BY critère] [HAVING condition] [ORDER BY expression [ASC/DESC]]",
+      "exemple": "SELECT nom, prenom, age\nFROM etudiants\nWHERE age > 18\nORDER BY nom ASC;\n\nSELECT ville, COUNT(*) AS nombre\nFROM etudiants\nGROUP BY ville\nHAVING COUNT(*) > 5;"
+    },
+    {
+      "commande": "INSERT INTO",
+      "définition": "Insertion des données dans une table.",
+      "syntaxe": "INSERT INTO table [[liste colonnes]] VALUES [[liste valeurs]]",
+      "exemple": "INSERT INTO etudiants (nom, prenom, age)\nVALUES ('Ben Ali', 'Ahmed', 20);\n\nINSERT INTO etudiants\nVALUES (1, 'Ben Ali', 'Ahmed', 20, 'Tunis');"
+    },
+    {
+      "commande": "UPDATE",
+      "définition": "Modification des valeurs d'une colonne.",
+      "syntaxe": "UPDATE table1 SET colonne = expression [WHERE condition]",
+      "exemple": "UPDATE etudiants\nSET age = 21\nWHERE nom = 'Ben Ali';\n\nUPDATE produits\nSET prix = prix * 1.1\nWHERE categorie = 'Électronique';"
+    },
+    {
+      "commande": "DELETE FROM",
+      "définition": "Suppression des enregistrements d'une table.",
+      "syntaxe": "DELETE FROM table1 [WHERE condition]",
+      "exemple": "DELETE FROM etudiants\nWHERE age < 18;\n\nDELETE FROM commandes\nWHERE date_commande < '2024-01-01';"
+    }
+  ],
+  "Contraintes d'intégrité": [
+    {
+      "contrainte": "NOT NULL",
+      "définition": "Interdit une valeur nulle.",
+      "exemple": "CREATE TABLE etudiants (\n  nom VARCHAR(50) NOT NULL,\n  prenom VARCHAR(50) NOT NULL\n);"
+    },
+    {
+      "contrainte": "DEFAULT",
+      "définition": "Attribue une valeur par défaut.",
+      "exemple": "CREATE TABLE produits (\n  nom VARCHAR(100),\n  stock INT DEFAULT 0,\n  actif BOOLEAN DEFAULT TRUE\n);"
+    },
+    {
+      "contrainte": "CHECK",
+      "définition": "Spécifie que les valeurs de la colonne doivent respecter une condition.",
+      "exemple": "CREATE TABLE etudiants (\n  age INT CHECK (age >= 0 AND age <= 150),\n  note DECIMAL(4,2) CHECK (note >= 0 AND note <= 20)\n);"
+    },
+    {
+      "contrainte": "PRIMARY KEY",
+      "définition": "Définit une clé primaire.",
+      "exemple": "CREATE TABLE etudiants (\n  id INT PRIMARY KEY,\n  nom VARCHAR(50)\n);\n-- Ou\nCREATE TABLE etudiants (\n  id INT,\n  nom VARCHAR(50),\n  PRIMARY KEY (id)\n);"
+    },
+    {
+      "contrainte": "UNIQUE",
+      "définition": "Spécifie l'unicité des valeurs d'une colonne.",
+      "exemple": "CREATE TABLE utilisateurs (\n  email VARCHAR(100) UNIQUE,\n  telephone VARCHAR(20) UNIQUE\n);"
+    },
+    {
+      "contrainte": "FOREIGN KEY",
+      "définition": "Définit une clé étrangère.",
+      "exemple": "CREATE TABLE commandes (\n  id INT PRIMARY KEY,\n  client_id INT,\n  FOREIGN KEY (client_id) REFERENCES clients(id)\n);"
+    },
+    {
+      "contrainte": "REFERENCES",
+      "définition": "Fait référence à une clé primaire d'une autre table.",
+      "exemple": "CREATE TABLE inscriptions (\n  etudiant_id INT REFERENCES etudiants(id),\n  cours_id INT REFERENCES cours(id)\n);"
+    },
+    {
+      "contrainte": "ON UPDATE CASCADE",
+      "définition": "Met à jour la clé étrangère en cas de mise à jour de la clé primaire.",
+      "exemple": "CREATE TABLE commandes (\n  client_id INT,\n  FOREIGN KEY (client_id) REFERENCES clients(id)\n  ON UPDATE CASCADE\n);"
+    },
+    {
+      "contrainte": "ON DELETE CASCADE",
+      "définition": "Supprime automatiquement tous les enregistrements de la table fille suite à la suppression de l'enregistrement correspondant de la table mère.",
+      "exemple": "CREATE TABLE commandes (\n  client_id INT,\n  FOREIGN KEY (client_id) REFERENCES clients(id)\n  ON DELETE CASCADE\n);"
+    }
+  ],
+  "Définition des données": [
+    {
+      "commande": "CREATE DATABASE",
+      "définition": "Crée une base de données.",
+      "syntaxe": "CREATE DATABASE nom",
+      "exemple": "CREATE DATABASE ecole;\nCREATE DATABASE IF NOT EXISTS entreprise;"
+    },
+    {
+      "commande": "DROP DATABASE",
+      "définition": "Supprime une base de données.",
+      "syntaxe": "DROP DATABASE nom",
+      "exemple": "DROP DATABASE ecole;\nDROP DATABASE IF EXISTS test_db;"
+    },
+    {
+      "commande": "CREATE TABLE",
+      "définition": "Crée une table.",
+      "syntaxe": "CREATE TABLE table1 (colonne1 type [contrainte], colonne2 type [contrainte], ... [[CONSTRAINT] [nom] [contrainte], ... ]",
+      "exemple": "CREATE TABLE etudiants (\n  id INT PRIMARY KEY AUTO_INCREMENT,\n  nom VARCHAR(50) NOT NULL,\n  prenom VARCHAR(50),\n  age INT CHECK (age >= 0),\n  email VARCHAR(100) UNIQUE\n);"
+    },
+    {
+      "commande": "ALTER TABLE ADD",
+      "définition": "Ajoute une colonne à une table.",
+      "syntaxe": "ALTER TABLE table1 ADD colonne type [contrainte]",
+      "exemple": "ALTER TABLE etudiants\nADD telephone VARCHAR(20);\n\nALTER TABLE etudiants\nADD date_naissance DATE NOT NULL;"
+    },
+    {
+      "commande": "ALTER TABLE DROP",
+      "définition": "Supprime une colonne.",
+      "syntaxe": "ALTER TABLE table1 DROP colonne",
+      "exemple": "ALTER TABLE etudiants\nDROP COLUMN telephone;"
+    },
+    {
+      "commande": "ALTER TABLE ALTER",
+      "définition": "Modifie le type d'une colonne.",
+      "syntaxe": "ALTER TABLE table1 ALTER colonne type",
+      "exemple": "ALTER TABLE etudiants\nMODIFY COLUMN nom VARCHAR(100);"
+    },
+    {
+      "commande": "ALTER TABLE RENAME",
+      "définition": "Modifie le nom d'une colonne.",
+      "syntaxe": "ALTER TABLE table1 RENAME nom1 TO nom2",
+      "exemple": "ALTER TABLE etudiants\nRENAME COLUMN prenom TO first_name;"
+    },
+    {
+      "commande": "ALTER TABLE ADD CONSTRAINT",
+      "définition": "Ajoute une contrainte sur une colonne d'une table.",
+      "syntaxe": "ALTER TABLE table1 ADD CONSTRAINT [nom] contrainte",
+      "exemple": "ALTER TABLE etudiants\nADD CONSTRAINT fk_classe\nFOREIGN KEY (classe_id) REFERENCES classes(id);"
+    },
+    {
+      "commande": "ALTER TABLE DROP CONSTRAINT",
+      "définition": "Supprime une contrainte.",
+      "syntaxe": "ALTER TABLE table1 DROP CONSTRAINT nom",
+      "exemple": "ALTER TABLE etudiants\nDROP CONSTRAINT fk_classe;"
+    },
+    {
+      "commande": "DROP TABLE",
+      "définition": "Supprime une table.",
+      "syntaxe": "DROP TABLE table1",
+      "exemple": "DROP TABLE etudiants;\nDROP TABLE IF EXISTS temp_table;"
+    }
+  ]
+}
