@@ -337,5 +337,94 @@
       "définition": "Spécifie des informations supplémentaires sur un élément.",
       "exemple": "<abbr title=\"HyperText Markup Language\">HTML</abbr>"
     }
+  ],
+  "Éléments de formulaire": [
+    {
+      "balise": "<form>",
+      "définition": "Crée un formulaire HTML.",
+      "attributs": ["action", "method", "target"],
+      "valeurs_attributs": {
+        "method": ["get", "post"],
+        "target": ["_self", "_blank", "_parent", "_top", "iframeName"]
+      },
+      "exemple": "<form action=\"/submit\" method=\"post\">\n  <label for=\"nom\">Nom:</label>\n  <input type=\"text\" id=\"nom\" name=\"nom\">\n  <input type=\"submit\" value=\"Envoyer\">\n</form>"
+    },
+    {
+      "balise": "<fieldset>",
+      "définition": "Regroupe des éléments liés dans un formulaire.",
+      "exemple": "<fieldset>\n  <legend>Informations personnelles</legend>\n  <label for=\"prenom\">Prénom:</label>\n  <input type=\"text\" id=\"prenom\" name=\"prenom\">\n</fieldset>"
+    },
+    {
+      "balise": "<legend>",
+      "définition": "Définit une légende pour l'élément <fieldset>.",
+      "exemple": "<fieldset>\n  <legend>Coordonnées</legend>\n  <input type=\"email\" name=\"email\">\n</fieldset>"
+    },
+    {
+      "balise": "<label>",
+      "définition": "Définit un libellé pour un élément graphique.",
+      "attributs": ["for"],
+      "exemple": "<label for=\"email\">Adresse email:</label>\n<input type=\"email\" id=\"email\" name=\"email\">"
+    },
+    {
+      "balise": "<input>",
+      "définition": "Définit un champ de saisie.",
+      "types": [
+        {
+          "type": "button, reset, submit",
+          "attributs_generiques": ["name", "value", "disabled"],
+          "attributs_specifiques": []
+        },
+        {
+          "type": "text, email, tel",
+          "attributs_generiques": ["name", "value", "placeholder", "readonly", "required", "disabled", "list"],
+          "attributs_specifiques": []
+        },
+        {
+          "type": "password",
+          "attributs_generiques": ["name", "value", "placeholder", "readonly", "required", "disabled"],
+          "attributs_specifiques": []
+        },
+        {
+          "type": "number, range",
+          "attributs_generiques": ["name", "value", "readonly", "required", "disabled"],
+          "attributs_specifiques": ["min", "max"]
+        },
+        {
+          "type": "date, time",
+          "attributs_generiques": ["name", "value", "required", "disabled"],
+          "attributs_specifiques": ["min", "max"]
+        },
+        {
+          "type": "checkbox, radio",
+          "attributs_generiques": ["name", "value", "required", "disabled"],
+          "attributs_specifiques": ["checked"]
+        }
+      ],
+      "exemple": "<input type=\"text\" name=\"username\" placeholder=\"Nom d'utilisateur\" required>\n<input type=\"email\" name=\"email\" placeholder=\"Email\">\n<input type=\"password\" name=\"password\" required>\n<input type=\"number\" name=\"age\" min=\"18\" max=\"100\">\n<input type=\"date\" name=\"date_naissance\">\n<input type=\"checkbox\" name=\"accepter\" checked>\n<input type=\"radio\" name=\"genre\" value=\"homme\">\n<input type=\"submit\" value=\"Envoyer\">"
+    },
+    {
+      "balise": "<textarea>",
+      "définition": "Définit une zone de saisie de texte multilignes.",
+      "attributs": ["name", "cols", "rows", "readonly", "required", "disabled", "placeholder", "maxlength"],
+      "exemple": "<textarea name=\"commentaire\" rows=\"4\" cols=\"50\" placeholder=\"Votre commentaire ici...\" maxlength=\"500\"></textarea>"
+    },
+    {
+      "balise": "<select>",
+      "définition": "Définit une liste déroulante.",
+      "attributs": ["name", "required", "disabled", "multiple"],
+      "exemple": "<select name=\"pays\">\n  <option value=\"tn\">Tunisie</option>\n  <option value=\"fr\">France</option>\n  <option value=\"dz\">Algérie</option>\n</select>"
+    },
+    {
+      "balise": "<datalist>",
+      "définition": "Spécifie une liste d'options prédéfinies connectée à un élément <input>.",
+      "exemple": "<input list=\"villes\" name=\"ville\">\n<datalist id=\"villes\">\n  <option value=\"Tunis\">\n  <option value=\"Sousse\">\n  <option value=\"Sfax\">\n</datalist>"
+    },
+    {
+      "balise": "<option>",
+      "définition": "Définit une option dans une liste de sélection.",
+      "attributs": ["value", "selected"],
+      "exemple": "<select name=\"couleur\">\n  <option value=\"rouge\">Rouge</option>\n  <option value=\"bleu\" selected>Bleu</option>\n  <option value=\"vert\">Vert</option>\n</select>"
+    }
   ]
+
 }
