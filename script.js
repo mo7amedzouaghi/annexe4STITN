@@ -30,8 +30,9 @@ Promise.all([
 const state = {
     currentTech: null,
     currentCategory: null,
-    waitingForDefinition: false,
-    searchTerm: ""
+    waitingForTech: false,
+    waitingForCategory: false,
+    waitingForElement: false
 };
 
 // Éléments DOM
@@ -58,21 +59,33 @@ function addMessage(text, isUser = false, isCode = false) {
     chatContainer.scrollTop = chatContainer.scrollHeight;
 }
 
+function updatePlaceholder(text) {
+    userInput.placeholder = text;
+}
+
 function showWelcomeMessage() {
     addMessage("Bienvenue dans le Chatbot Tech Web ! 🤖", false);
-    addMessage("Sélectionnez une technologie pour voir ses catégories :", false);
+    addMessage("Sélectionnez une technologie :", false);
     showTechOptions();
+    state.waitingForTech = true;
+    state.waitingForCategory = false;
+    state.waitingForElement = false;
+    updatePlaceholder("Saisissez le numéro de la technologie...");
 }
 
 function showTechOptions() {
+    const techList = Object.keys(techData);
     const optionsDiv = document.createElement('div');
     optionsDiv.classList.add('options-container');
     
-    Object.keys(techData).forEach(tech => {
+    techList.forEach((tech, index) => {
         const button = document.createElement('button');
         button.classList.add('tech-option');
-        button.textContent = tech;
-        button.onclick = () => selectTech(tech);
+        button.textContent = `${index + 1}. ${tech}`;
+        button.onclick = () => {
+            addMessage(`${index + 1}`, true);
+            selectTech(index);
+        };
         optionsDiv.appendChild(button);
     });
     
@@ -80,13 +93,23 @@ function showTechOptions() {
     chatContainer.scrollTop = chatContainer.scrollHeight;
 }
 
-function selectTech(tech) {
+function selectTech(index) {
+    const techList = Object.keys(techData);
+    if (index < 0 || index >= techList.length) {
+        addMessage("❌ Numéro invalide. Veuillez choisir un numéro entre 1 et " + techList.length, false);
+        return;
+    }
+    
+    const tech = techList[index];
     state.currentTech = tech;
     state.currentCategory = null;
-    addMessage(tech, true);
     
-    addMessage(`Vous avez sélectionné ${tech}. Choisissez une catégorie pour voir la liste des éléments :`, false);
+    addMessage(`Vous avez sélectionné ${tech}. Choisissez une catégorie :`, false);
     showTechCategories();
+    state.waitingForTech = false;
+    state.waitingForCategory = true;
+    state.waitingForElement = false;
+    updatePlaceholder("Saisissez le numéro de la catégorie (0 pour retour)...");
 }
 
 function showTechCategories() {
@@ -94,11 +117,28 @@ function showTechCategories() {
     const optionsDiv = document.createElement('div');
     optionsDiv.classList.add('options-container');
     
-    categories.forEach(category => {
+    // Bouton retour
+    const backButton = document.createElement('button');
+    backButton.classList.add('tech-option', 'back-option');
+    backButton.textContent = '0. ⬅️ Retour';
+    backButton.onclick = () => {
+        addMessage("0", true);
+        state.currentTech = null;
+        state.currentCategory = null;
+        chatContainer.innerHTML = '';
+        showWelcomeMessage();
+    };
+    optionsDiv.appendChild(backButton);
+    
+    // Options catégories
+    categories.forEach((category, index) => {
         const button = document.createElement('button');
         button.classList.add('tech-option');
-        button.textContent = category;
-        button.onclick = () => selectCategory(category);
+        button.textContent = `${index + 1}. ${category}`;
+        button.onclick = () => {
+            addMessage(`${index + 1}`, true);
+            selectCategory(index + 1);
+        };
         optionsDiv.appendChild(button);
     });
     
@@ -106,32 +146,97 @@ function showTechCategories() {
     chatContainer.scrollTop = chatContainer.scrollHeight;
 }
 
-function selectCategory(category) {
+function selectCategory(index) {
+    const categories = Object.keys(techData[state.currentTech]);
+    
+    if (index === 0) {
+        // Retour au menu principal
+        addMessage("0", true);
+        state.currentTech = null;
+        state.currentCategory = null;
+        chatContainer.innerHTML = '';
+        showWelcomeMessage();
+        return;
+    }
+    
+    if (index < 1 || index > categories.length) {
+        addMessage("❌ Numéro invalide. Veuillez choisir un numéro entre 0 et " + categories.length, false);
+        return;
+    }
+    
+    const category = categories[index - 1];
     state.currentCategory = category;
-    addMessage(category, true);
+    
+    addMessage(`Catégorie "${category}" en ${state.currentTech}`, false);
     
     const items = techData[state.currentTech][category];
-    let message = `Voici les éléments de la catégorie "${category}" en ${state.currentTech}:\n\n`;
+    const optionsDiv = document.createElement('div');
+    optionsDiv.classList.add('options-container');
     
-    items.forEach((item, index) => {
+    // Bouton retour
+    const backButton = document.createElement('button');
+    backButton.classList.add('tech-option', 'back-option');
+    backButton.textContent = '0. ⬅️ Retour';
+    backButton.onclick = () => {
+        addMessage("0", true);
+        state.currentCategory = null;
+        chatContainer.innerHTML = '';
+        addMessage("Bienvenue dans le Chatbot Tech Web ! 🤖", false);
+        addMessage(`Vous avez sélectionné ${state.currentTech}. Choisissez une catégorie :`, false);
+        showTechCategories();
+        state.waitingForCategory = true;
+        state.waitingForElement = false;
+        updatePlaceholder("Saisissez le numéro de la catégorie (0 pour retour)...");
+    };
+    optionsDiv.appendChild(backButton);
+    
+    // Options éléments
+    items.forEach((item, idx) => {
         const key = Object.keys(item)[0];
         const name = item[key] || item.nom || item.attribut || item.événement;
-        message += `${index + 1}. ${name}\n`;
+        const button = document.createElement('button');
+        button.classList.add('tech-option');
+        button.textContent = `${idx + 1}. ${name}`;
+        button.onclick = () => {
+            addMessage(`${idx + 1}`, true);
+            showDefinition(idx + 1);
+        };
+        optionsDiv.appendChild(button);
     });
     
-    addMessage(message, false);
-    addMessage("Entrez le numéro d'un élément pour voir sa définition détaillée avec exemple d'utilisation.", false);
-    addMessage("Tapez 'retour' pour choisir une autre catégorie ou 'menu' pour revenir au choix de technologie.", false);
+    chatContainer.appendChild(optionsDiv);
+    chatContainer.scrollTop = chatContainer.scrollHeight;
+    
+    addMessage("Sélectionnez un élément pour voir sa définition détaillée avec exemple.", false);
+    
+    state.waitingForCategory = false;
+    state.waitingForElement = true;
+    updatePlaceholder("Saisissez le numéro de l'élément (0 pour retour)...");
 }
 
 function showDefinition(itemIndex) {
     const items = techData[state.currentTech][state.currentCategory];
-    if (itemIndex < 0 || itemIndex >= items.length) {
-        addMessage("Numéro invalide. Veuillez choisir un numéro dans la liste.", false);
+    
+    if (itemIndex === 0) {
+        // Retour aux catégories
+        addMessage("0", true);
+        state.currentCategory = null;
+        chatContainer.innerHTML = '';
+        addMessage("Bienvenue dans le Chatbot Tech Web ! 🤖", false);
+        addMessage(`Vous avez sélectionné ${state.currentTech}. Choisissez une catégorie :`, false);
+        showTechCategories();
+        state.waitingForCategory = true;
+        state.waitingForElement = false;
+        updatePlaceholder("Saisissez le numéro de la catégorie (0 pour retour)...");
         return;
     }
     
-    const item = items[itemIndex];
+    if (itemIndex < 1 || itemIndex > items.length) {
+        addMessage("❌ Numéro invalide. Veuillez choisir un numéro entre 0 et " + items.length, false);
+        return;
+    }
+    
+    const item = items[itemIndex - 1];
     let definition = "";
     
     // Construire la réponse en fonction de la structure de l'élément
@@ -159,100 +264,70 @@ function showDefinition(itemIndex) {
         addMessage(item.exemple, false, true);
     }
     
-    addMessage("Tapez 'retour' pour choisir une autre catégorie, ou 'menu' pour revenir au choix de technologie.", false);
+    // Bouton retour
+    const optionsDiv = document.createElement('div');
+    optionsDiv.classList.add('options-container');
+    
+    const backButton = document.createElement('button');
+    backButton.classList.add('tech-option', 'back-option');
+    backButton.textContent = '0. ⬅️ Retour à la liste';
+    backButton.onclick = () => {
+        addMessage("0", true);
+        const prevCategory = state.currentCategory;
+        state.currentCategory = null;
+        chatContainer.innerHTML = '';
+        addMessage("Bienvenue dans le Chatbot Tech Web ! 🤖", false);
+        addMessage(`Vous avez sélectionné ${state.currentTech}. Choisissez une catégorie :`, false);
+        
+        // Re-sélectionner la catégorie précédente
+        const categories = Object.keys(techData[state.currentTech]);
+        const categoryIndex = categories.indexOf(prevCategory) + 1;
+        state.currentCategory = prevCategory;
+        selectCategory(categoryIndex);
+    };
+    optionsDiv.appendChild(backButton);
+    
+    chatContainer.appendChild(optionsDiv);
+    chatContainer.scrollTop = chatContainer.scrollHeight;
+    
+    updatePlaceholder("Saisissez 0 pour retour...");
 }
 
 function processUserInput(input) {
     if (!input.trim()) return;
     
-    addMessage(input, true);
+    const userNumber = parseInt(input.trim());
     
-    if (state.waitingForDefinition) {
-        searchElement(input);
-        state.waitingForDefinition = false;
-    } else if (input.toLowerCase() === 'menu') {
-        resetChat();
-    } else if (input.toLowerCase() === 'retour' && state.currentTech) {
-        if (state.currentCategory) {
-            state.currentCategory = null;
-            showTechCategories();
+    if (isNaN(userNumber)) {
+        addMessage(input, true);
+        addMessage("❌ Veuillez saisir un numéro valide.", false);
+        userInput.value = '';
+        return;
+    }
+    
+    if (state.waitingForTech) {
+        if (userNumber < 1 || userNumber > Object.keys(techData).length) {
+            addMessage(input, true);
+            addMessage("❌ Numéro invalide. Veuillez choisir un numéro valide.", false);
         } else {
-            resetChat();
+            addMessage(input, true);
+            selectTech(userNumber - 1);
         }
-    } else if (state.currentTech && state.currentCategory) {
-        const itemIndex = parseInt(input) - 1;
-        if (!isNaN(itemIndex)) {
-            showDefinition(itemIndex);
-        } else {
-            addMessage("Veuillez entrer un numéro valide ou 'retour'/'menu'.", false);
-        }
-    } else {
-        resetChat();
+    } else if (state.waitingForCategory) {
+        selectCategory(userNumber);
+    } else if (state.waitingForElement) {
+        showDefinition(userNumber);
     }
     
     userInput.value = '';
 }
 
-function searchElement(term) {
-    term = term.toLowerCase();
-    let found = false;
-    
-    for (const category in techData[state.currentTech]) {
-        const items = techData[state.currentTech][category];
-        
-        for (const item of items) {
-            for (const key in item) {
-                if (key === "exemple") continue; // Ne pas chercher dans les exemples
-                
-                const value = String(item[key]).toLowerCase();
-                
-                if (value.includes(term)) {
-                    addMessage(`✅ Résultat trouvé dans la catégorie "${category}":`, false);
-                    
-                    let definition = "";
-                    for (const k in item) {
-                        if (k === "attributs" && Array.isArray(item[k])) {
-                            definition += `Attributs: ${item[k].join(", ")}\n`;
-                        } else if (k === "syntaxe") {
-                            definition += `Syntaxe:\n${item[k]}\n`;
-                        } else if (k !== "définition" && k !== "exemple") {
-                            definition += `${k.charAt(0).toUpperCase() + k.slice(1)}: ${item[k]}\n`;
-                        }
-                    }
-                    
-                    if (item.définition) {
-                        definition += `\nDéfinition: ${item.définition}`;
-                    }
-                    
-                    addMessage(definition, false, true);
-                    
-                    // Afficher l'exemple s'il existe
-                    if (item.exemple) {
-                        addMessage("💡 Exemple d'utilisation:", false);
-                        addMessage(item.exemple, false, true);
-                    }
-                    
-                    found = true;
-                    break;
-                }
-            }
-            if (found) break;
-        }
-        if (found) break;
-    }
-    
-    if (!found) {
-        addMessage(`❌ Désolé, je n'ai pas trouvé d'élément correspondant à "${term}".`, false);
-    }
-    
-    addMessage("Tapez 'menu' pour revenir au choix de technologie.", false);
-}
-
 function resetChat() {
     state.currentTech = null;
     state.currentCategory = null;
-    state.waitingForDefinition = false;
-    state.searchTerm = "";
+    state.waitingForTech = false;
+    state.waitingForCategory = false;
+    state.waitingForElement = false;
     chatContainer.innerHTML = '';
     showWelcomeMessage();
 }
