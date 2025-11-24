@@ -150,20 +150,33 @@ body {
     color: white;
     border: none;
     border-radius: 20px;
-    padding: 8px 15px;
+    padding: 10px 20px;
     margin: 5px;
     cursor: pointer;
-    transition: background 0.3s;
+    transition: all 0.3s;
+    font-size: 0.95rem;
+    font-weight: 500;
 }
 
 .tech-option:hover {
     background: #3a56a5;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.back-option {
+    background: #95a5a6;
+}
+
+.back-option:hover {
+    background: #7f8c8d;
 }
 
 .options-container {
     display: flex;
     flex-wrap: wrap;
     margin: 10px 0;
+    animation: fadeIn 0.3s ease-in-out;
 }
 
 @media (max-width: 600px) {
@@ -183,5 +196,10 @@ body {
     .input-area button {
         margin-left: 0;
         margin-top: 10px;
+    }
+    
+    .tech-option {
+        font-size: 0.85rem;
+        padding: 8px 15px;
     }
 }
