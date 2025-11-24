@@ -45,6 +45,10 @@
       "définition": "Cible l'élément au moment où l'utilisateur le survole avec le pointeur de la souris.",
       "exemple": "a:hover {\n  color: red;\n  text-decoration: underline;\n}"
     },
+    {"sélecteur": ":focus",
+      "définition": "Cible l'élément lorsqu'il a le focus (par exemple lors d'un clic ou de la navigation au clavier).",
+      "exemple": "input:focus {\n  border-color: #007bff;\n  outline: 2px solid #007bff;\n  box-shadow: 0 0 5px rgba(0,123,255,0.5);\n}"
+    },
     {
       "sélecteur": "a:active",
       "définition": "Cible l'élément au moment où il est activé par l'utilisateur.",
