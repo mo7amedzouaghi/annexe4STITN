@@ -178,7 +178,7 @@
     {
       "propriété": "text-transform",
       "définition": "Spécifie la façon de transformer les caractères d'un texte en majuscules ou en minuscules (uppercase, lowercase, capitalize).",
-      "exemple": "nav a {\n  text-transform: uppercase;\n}\n.nom {\n  text-transform: capitalize;\n}",
+      "exemple": ".lien-menu {\n  text-transform: uppercase;\n}\n.nom {\n  text-transform: capitalize;\n}",
       "valeurs": "uppercase, lowercase, capitalize",
       "niveau": 3,
       "motsClés": "majuscules minuscules casse capitale"
@@ -397,7 +397,7 @@
     {
       "propriété": "display",
       "définition": "Spécifie le comportement d'affichage d'un élément (inline, block, inline-block).",
-      "exemple": "nav a {\n  display: inline-block;\n  width: 120px;\n}",
+      "exemple": ".lien-menu {\n  display: inline-block;\n  width: 120px;\n}",
       "valeurs": "inline, block, inline-block",
       "remarques": [
         "flex, grid et none ne sont pas listés dans l'annexe."

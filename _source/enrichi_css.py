@@ -36,7 +36,7 @@ s("font", "p {\n  font: italic bold 16px Arial, sans-serif;\n}", "police abrég�
   rq=["La taille et la police sont obligatoires, dans cet ordre, à la fin.", "line-height n'est pas dans l'annexe."])
 s("text-align", "h1 {\n  text-align: center;\n}\np {\n  text-align: justify;\n}", "aligner alignement centrer centré justifier titre texte", v="left, center, right, justify")
 s("text-shadow", "h1 {\n  text-shadow: 2px 2px 4px gray;\n}", "ombre texte", v="décalage-x décalage-y [flou] couleur")
-s("text-transform", "nav a {\n  text-transform: uppercase;\n}\n.nom {\n  text-transform: capitalize;\n}", "majuscules minuscules casse capitale",
+s("text-transform", ".lien-menu {\n  text-transform: uppercase;\n}\n.nom {\n  text-transform: capitalize;\n}", "majuscules minuscules casse capitale",
   v="uppercase, lowercase, capitalize")
 s("color", "h1 {\n  color: #0D2B6B;\n}\np {\n  color: rgb(40, 40, 40);\n}", "couleur texte",
   v="Nom (red), hexadécimal (#0D2B6B), rgb(r, g, b)")
@@ -88,7 +88,7 @@ s("padding", ".carte {\n  padding: 15px;            /* 4 côtés */\n  padding: 
 s("margin", "section {\n  margin: 20px;\n}\n.centre {\n  width: 800px;\n  margin: 0px auto;   /* centrage horizontal */\n}", "marge extérieure espacement centrer",
   v="1 à 4 valeurs en px, % ou auto")
 s("box-shadow", ".carte {\n  box-shadow: 4px 4px 8px gray;\n}", "ombre boîte", v="décalage-x décalage-y [flou] couleur")
-s("display", "nav a {\n  display: inline-block;\n  width: 120px;\n}", "affichage bloc en ligne", v="inline, block, inline-block",
+s("display", ".lien-menu {\n  display: inline-block;\n  width: 120px;\n}", "affichage bloc en ligne", v="inline, block, inline-block",
   rq=["flex, grid et none ne sont pas listés dans l'annexe."])
 s("top", ".badge {\n  position: absolute;\n  top: 10px;\n}", "décalage haut position", v="Valeur en px ou %")
 s("bottom", ".pied {\n  position: fixed;\n  bottom: 0px;\n}", "décalage bas position", v="Valeur en px ou %")

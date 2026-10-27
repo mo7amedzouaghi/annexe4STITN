@@ -39,9 +39,9 @@ HORS_ANNEXE = [
          a="footer {\n  clear: both;\n}", v=["float"]),
     dict(m=["no-repeat"], l="CSS3", x="no-repeat n'est pas listé dans l'annexe (valeurs : repeat, repeat-x, repeat-y).",
          a='header {\n  background-image: url("bandeau.jpg");\n  background-size: cover;\n}', v=["background-repeat", "background-size"]),
-    dict(m=["::before", "::after", ":nth-child", "first-child", "last-child", "pseudo-élément", "sélecteur enfant"], l="CSS3",
-         x="Seuls les sélecteurs de l'annexe sont utilisables : élément, #id, .classe, [attr], élément.classe et les pseudo-classes de lien et :focus.",
-         a="nav a {\n  color: white;\n}", v=["element", ".class", "element.class"]),
+    dict(m=["::before", "::after", ":nth-child", "first-child", "last-child", "pseudo-élément", "sélecteur enfant", "sélecteur descendant", "sélecteur combiné", "combinateur", "selecteur descendant", "selecteur combine"], l="CSS3",
+         x="Seuls les sélecteurs de l'annexe sont utilisables : élément, #id, .classe, élément[attr], élément[attr=valeur], élément.classe, a:link, a:visited, a:hover, a:active et :focus. Les sélecteurs combinés (« .menu a », « nav > a », « h1 + p ») sont hors programme : donner une classe aux éléments ciblés.",
+         a="/* HTML : <a href=\"index.html\" class=\"lien-menu\">Accueil</a> */\n.lien-menu {\n  color: white;\n}", v=["element", ".class", "element.class"]),
     # ---------- JavaScript
     dict(m=["charat", "charat()", "caractere a la position"], l="JavaScript", x="charAt() n'est pas dans l'annexe : on accède au caractère avec ch[i].",
          a='let premier = ch[0];\nlet dernier = ch[ch.length - 1];', v=["ch.length"]),
