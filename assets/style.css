@@ -118,3 +118,6 @@ table.t td:first-child { font: 600 13.5px var(--mono); color: var(--marine); whi
   table.t td:first-child { white-space: normal; }
   .envoyer { padding: 0 12px; }
 }
+
+/* Pas de ligatures dans le code : != et == restent lisibles tels qu'ils se tapent */
+code, pre, .syntaxe, .ref-ex, .puce.mono, .fiche-tete h2 { font-variant-ligatures: none; font-feature-settings: "liga" 0, "calt" 0; }

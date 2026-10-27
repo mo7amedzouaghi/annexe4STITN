@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mode IA — Assistant Annexe STI</title>
+<meta name="description" content="Assistant intelligent STI : un modèle d'IA libre qui tourne dans votre navigateur et répond à partir de l'annexe officielle.">
+<link rel="icon" href="assets/flag.png">
+<link rel="stylesheet" href="assets/vendor/fonts.css">
+<link rel="stylesheet" href="assets/vendor/prism-tomorrow.css">
+<link rel="stylesheet" href="assets/style.css">
+<link rel="stylesheet" href="assets/ia.css">
+</head>
+<body>
+<header class="barre">
+  <div class="barre-in">
+    <a class="marque" href="./"><span class="marque-logo">STI</span><span class="marque-txt">Assistant Annexe<small>Mode IA (bêta)</small></span></a>
+    <nav class="modes" aria-label="Mode">
+      <a href="./">Recherche rapide</a>
+      <a href="ia.html" aria-current="page">Mode IA <span class="beta">bêta</span></a>
+    </nav>
+    <div class="niveau-choix" role="group" aria-label="Mon niveau">
+      <span>Mon niveau</span>
+      <button type="button" data-n="0" aria-pressed="true">Tous</button>
+      <button type="button" data-n="2" aria-pressed="false">2ème</button>
+      <button type="button" data-n="3" aria-pressed="false">3ème</button>
+      <button type="button" data-n="4" aria-pressed="false">4ème</button>
+    </div>
+  </div>
+</header>
+
+<main class="app">
+  <section class="fil" id="fil" aria-live="polite" aria-label="Conversation">
+
+    <div class="demarrage" id="demarrage">
+      <h1>Votre assistant STI, dans votre navigateur</h1>
+      <p>Un modèle d'intelligence artificielle libre (Qwen 2.5) tourne <strong>directement sur cet ordinateur</strong> : aucune donnée n'est envoyée sur Internet, aucun compte ni abonnement. Pour chaque question, il reçoit les fiches de l'annexe officielle qui s'y rapportent, et chaque code qu'il propose est vérifié automatiquement.</p>
+
+      <div class="incompatible" id="incompatible" hidden>
+        <strong>Ce navigateur ne peut pas faire tourner le modèle.</strong>
+        Il faut Chrome ou Edge récent (version 113 ou plus) sur ordinateur, avec WebGPU activé.
+        Vous pouvez utiliser la <a href="./">recherche rapide</a>, qui fonctionne partout.
+      </div>
+
+      <fieldset class="modeles" id="modeles">
+        <legend>Choisir le modèle</legend>
+        <label><input type="radio" name="modele" value="Qwen2.5-0.5B-Instruct"> <b>Léger</b> <span>≈ 0,9 Go · rapide, réponses simples · PC modestes</span></label>
+        <label><input type="radio" name="modele" value="Qwen2.5-1.5B-Instruct" checked> <b>Équilibré</b> <span>≈ 1,6 Go · bon compromis (conseillé)</span></label>
+        <label><input type="radio" name="modele" value="Qwen2.5-3B-Instruct"> <b>Précis</b> <span>≈ 2,5 Go · meilleures réponses · carte graphique récente</span></label>
+      </fieldset>
+
+      <button type="button" class="charger" id="charger">Charger l'assistant</button>
+      <p class="note">Le modèle est téléchargé <strong>une seule fois</strong>, puis conservé par le navigateur pour les visites suivantes.</p>
+
+      <div class="progression" id="progression" hidden>
+        <div class="barre-prog"><div id="prog-remplie"></div></div>
+        <p id="prog-texte">Préparation…</p>
+      </div>
+    </div>
+
+  </section>
+
+  <form class="saisie" id="saisie" autocomplete="off">
+    <div class="saisie-in">
+      <input type="text" id="question" placeholder="Chargez d'abord l'assistant" aria-label="Votre question" disabled>
+      <button type="submit" class="envoyer" id="envoyer" disabled>Envoyer</button>
+      <button type="button" class="arreter" id="arreter" hidden>Arrêter</button>
+    </div>
+    <div class="saisie-outils">
+      <button type="button" id="effacer">Nouvelle discussion</button>
+      <span class="avertissement-ia">L'IA peut se tromper : vérifiez avec les fiches citées sous chaque réponse.</span>
+    </div>
+  </form>
+</main>
+
+<script src="assets/vendor/prism.js"></script>
+<script src="assets/data.js"></script>
+<script src="assets/moteur.js"></script>
+<script src="assets/recettes.js"></script>
+<script type="module" src="assets/ia.js"></script>
+</body>
+</html>
