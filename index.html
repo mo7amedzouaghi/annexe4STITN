@@ -1,29 +1,47 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chatbot Tech Web</title>
-    <link rel="stylesheet" href="styles.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Assistant Annexe STI</title>
+<meta name="description" content="Assistant de l'annexe officielle STI : définition, paramètres, exemple conforme et remarques pour chaque balise, propriété, méthode et fonction (HTML5, CSS3, JavaScript, SQL, PHP).">
+<link rel="icon" href="assets/flag.png">
+<link rel="stylesheet" href="assets/vendor/fonts.css">
+<link rel="stylesheet" href="assets/vendor/prism-tomorrow.css">
+<link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>🤖 Chatbot Tech Web</h1>
-            <p>Obtenez des informations sur HTML, CSS, JavaScript, PHP et SQL Créé par Zouaghi Mohamed</p>
-        </div>
-        
-        <div class="chat-container" id="chatContainer"></div>
-        
-        <div class="input-area">
-            <input type="text" id="userInput" placeholder="Tapez votre message ici..." autocomplete="off">
-            <button id="sendButton">Envoyer</button>
-            <button id="restartButton" class="restart-btn">Nouvelle discussion</button>
-        </div>
+<header class="barre">
+  <div class="barre-in">
+    <a class="marque" href="./"><span class="marque-logo">STI</span><span class="marque-txt">Assistant Annexe<small>HTML5 · CSS3 · JavaScript · SQL · PHP</small></span></a>
+    <div class="niveau-choix" role="group" aria-label="Mon niveau">
+      <span>Mon niveau</span>
+      <button type="button" data-n="0" aria-pressed="true">Tous</button>
+      <button type="button" data-n="2" aria-pressed="false">2ème</button>
+      <button type="button" data-n="3" aria-pressed="false">3ème</button>
+      <button type="button" data-n="4" aria-pressed="false">4ème</button>
     </div>
+    <a class="lien-guide" href="https://mo7amedzouaghi.github.io/guideSTI/" target="_blank" rel="noopener">Guide STI</a>
+  </div>
+</header>
 
-    <script src="script.js"></script>
+<main class="app">
+  <section class="fil" id="fil" aria-live="polite" aria-label="Conversation"></section>
+
+  <form class="saisie" id="saisie" autocomplete="off">
+    <div class="saisie-in">
+      <input type="text" id="question" placeholder="Posez une question : arrondir un nombre, float, jointure, charAt…" aria-label="Votre question">
+      <button type="submit" class="envoyer">Rechercher</button>
+    </div>
+    <div class="saisie-outils">
+      <button type="button" id="parcourir">Parcourir l'annexe</button>
+      <button type="button" id="effacer">Nouvelle discussion</button>
+    </div>
+  </form>
+</main>
+
+<script src="assets/vendor/prism.js"></script>
+<script src="assets/data.js"></script>
+<script src="assets/app.js"></script>
 </body>
-
 </html>
-
