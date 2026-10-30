@@ -275,7 +275,7 @@
 
   function accueil() {
     fil.innerHTML = "";
-    msgBot('<div class="bulle"><p><strong>Bonjour !</strong> Je connais chaque élément de l\'annexe officielle STI : définition, paramètres, valeur de retour, exemple conforme et remarques.</p>' +
+    msgBot('<div class="bulle"><p><strong>Bonjour !</strong> Je connais chaque élément de l\'annexe officielle STI (aides pédagogiques 2026) : définition, paramètres, valeur de retour, exemple conforme et remarques.</p>' +
       "<p>Écrivez un nom (<code>substring</code>, <code>border-collapse</code>, <code>HAVING</code>) ou un besoin (« arrondir », « centrer un titre », « compter les lignes »). " +
       "Je signale aussi les techniques <strong>hors annexe</strong> et leur alternative conforme.</p>" +
       (niveau ? "<p>Niveau choisi : " + niveau + "ème.</p>" : "<p>Choisissez votre niveau en haut de la page pour filtrer les réponses.</p>") +

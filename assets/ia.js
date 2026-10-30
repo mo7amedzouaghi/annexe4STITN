@@ -91,13 +91,13 @@ function consignes() {
   return `Tu es l'Assistant STI créé par M. Zouaghi Mohamed (Lycée Oued Ellil, Tunisie) pour les enseignants de Sciences et Technologies de l'Informatique (2ème, 3ème, 4ème année).
 Réponds toujours en français, de façon claire, structurée et brève.
 ${niveau ? `L'enseignant travaille en ${niveau}ème année : n'utilise que des notions de ce niveau ou des niveaux inférieurs.` : ""}
-RÈGLES ABSOLUES (annexe officielle) :
+RÈGLES ABSOLUES (annexe officielle, aides pédagogiques 2026) :
 - N'utilise que les éléments de l'annexe. Appuie-toi sur les FICHES fournies. Si la demande sort de l'annexe, dis-le et donne l'alternative conforme.
-- HTML : aucune mise en forme par balise (pas de b, strong, i, em) : tout en CSS. Bouton = <input type="button" value="…" onclick="fonction()">, jamais <button>.
-- CSS : unités px et % uniquement. Mise en page par float et position, jamais flex ni grid. transition déclarée sur l'élément, pas sur :hover ; pas de ease ni linear.
-- JavaScript : lecture par document.getElementById(id).value ; erreur = alert("…") puis return ; succès = innerHTML. Caractère : ch[i] (jamais charAt). Sous-chaîne : substring (jamais substr ni slice). Math.trunc et Math.round (jamais floor ni ceil). Pas de console.log, addEventListener, querySelector, ===. Champ « chiffres uniquement » : boucle sur ch[i] entre "0" et "9".
-- SQL : jointure dans WHERE (jamais JOIN). Date du jour : DATE(NOW()) (jamais CURDATE). Pas d'AUTO_INCREMENT. Renommer une colonne : CHANGE.
-- PHP : mysqli procédural uniquement (mysqli_connect, mysqli_query, mysqli_fetch_array, mysqli_num_rows…), connexion dans connexion.php importée par require. Jamais PDO, ni new mysqli, ni switch, ni hachage de mot de passe.
+- HTML : pas de b, i, font, center ; pour le sens : strong (important), em (emphase), u, mark ; la présentation passe par le CSS. Bouton = <input type="button" value="…" onclick="fonction()">, jamais <button>.
+- CSS : unités px et % uniquement. Mise en page par float, position ou display: flex (sans justify-content, align-items ni grid) ; clear et visibility sont autorisés. transition déclarée sur l'élément, pas sur :hover ; pas de ease ni linear dans transition (autorisé dans animation).
+- JavaScript : lecture par document.getElementById(id).value ; erreur = alert("…") puis return ; succès = innerHTML. Caractère : ch[i] (jamais charAt). Sous-chaîne : substring (jamais substr ni slice). Math.trunc et Math.round (jamais floor ni ceil). Pas de console.log, document.write, addEventListener, querySelector, ===, var (let et const). element.style limité à color, background, border, font, width, height, visibility. Champ « chiffres uniquement » : boucle sur ch[i] entre "0" et "9".
+- SQL : jointure dans WHERE (jamais JOIN). Date du jour : DATE(NOW()) (jamais CURDATE). AUTO_INCREMENT, ENUM et LIMIT sont autorisés (4ème). Retyper : MODIFY ; renommer : CHANGE.
+- PHP : mysqli procédural uniquement (mysqli_connect, mysqli_query, mysqli_fetch_array, mysqli_num_rows…), connexion dans connexion.php importée par require. Jamais PDO, ni new mysqli, ni switch, ni strcmp (comparer avec ==), ni hachage de mot de passe.
 - Quand un MODÈLE DE RÉFÉRENCE est fourni, suis sa structure et ses conventions.
 - Écris le code dans des blocs \`\`\` avec le langage (html, css, js, sql, php), indenté et commenté.`;
 }
@@ -203,21 +203,19 @@ const CONTROLES = [
   [/querySelector|getElementsByClassName|getElementsByTagName/, "queryselector", "querySelector / getElementsBy…"],
   [/\.textContent|\.innerText/, "textcontent", "textContent / innerText"], [/\.getDay\s*\(/, "getday", "getDay()"],
   [/[!=]==/, "===", "=== / !=="], [/<button[\s>]/i, "<button>", "<button>"],
-  [/<(b|strong|i|em|u)>/i, "<b>", "balise de mise en forme"], [/\bpattern\s*=/, "pattern", "attribut pattern"],
-  [/<source[\s>]/i, "<source>", "<source>"],
-  [/display\s*:\s*(flex|grid)/i, "flex", "display: flex / grid"], [/\d(\.\d+)?(em|rem|vh|vw)\b/, "em", "unités em / rem / vh / vw"],
+  [/<(b|i|font|center)>/i, "<b>", "balise de présentation"], [/\bpattern\s*=/, "pattern", "attribut pattern"],
+  [/document\.write\s*\(/, "document.write", "document.write()"],
+  [/display\s*:\s*grid|justify-content|align-items/i, "flexbox", "grid / justify-content / align-items"], [/\d(\.\d+)?(em|rem|vh|vw)\b/, "em", "unités em / rem / vh / vw"],
   [/linear-gradient/i, "linear-gradient", "linear-gradient"], [/line-height/i, "line-height", "line-height"],
   [/text-decoration/i, "text-decoration", "text-decoration"], [/translate[XY]\s*\(/, "translatex", "translateX / translateY"],
-  [/\bJOIN\b/i, "join", "JOIN"], [/CURDATE\s*\(/i, "curdate", "CURDATE()"], [/AUTO_INCREMENT/i, "auto_increment", "AUTO_INCREMENT"],
-  [/\bMODIFY\b|RENAME\s+COLUMN/i, "modify", "MODIFY / RENAME COLUMN"], [/IF\s+(NOT\s+)?EXISTS/i, "if exists", "IF EXISTS"],
-  [/\bLIMIT\s+\d/i, "limit", "LIMIT"],
+  [/\bJOIN\b/i, "join", "JOIN"], [/CURDATE\s*\(/i, "curdate", "CURDATE()"], [/IF\s+(NOT\s+)?EXISTS/i, "if exists", "IF EXISTS"],
   [/new\s+PDO|new\s+mysqli/i, "pdo", "PDO / new mysqli"], [/mysqli_fetch_assoc|mysqli_connect_error/, "mysqli_fetch_assoc", "fonction mysqli hors annexe"],
   [/md5\s*\(|sha1\s*\(|password_hash|password_verify/i, "md5", "hachage du mot de passe"],
   [/\$_SESSION|session_start|setcookie/, "session", "sessions / cookies"], [/var_dump|print_r/, "var_dump", "var_dump / print_r"],
   [/\bforeach\b/, "foreach", "foreach"], [/\binclude(_once)?\b|require_once/, "include", "include / require_once"],
 ];
-const CONTROLES_CSS = [[/\b(ease|ease-in|ease-out|linear)\b/, "ease", "fonction de rythme (ease, linear)"]];
-const CONTROLES_PHP = [[/\bswitch\s*\(/, "switch", "switch en PHP"]];
+const CONTROLES_CSS = [[/transition[^;{}]*\b(ease|ease-in|ease-out|linear)\b/, "ease", "fonction de rythme dans transition (ease, linear)"]];
+const CONTROLES_PHP = [[/\bswitch\s*\(/, "switch", "switch en PHP"], [/\bstrcmp\s*\(/, "strcmp", "strcmp()"]];
 
 function trouverHors(cle) {
   const n = M.norm(cle);

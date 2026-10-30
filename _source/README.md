@@ -1,5 +1,15 @@
 # Sources de l'Assistant Annexe STI
 
+**Annexe 2026 (aides pédagogiques de septembre 2026).** Les fiches sont désormais maintenues dans le
+dépôt `guideSTI` (site du guide, vérificateur, application de bureau) et recopiées ici par :
+
+```
+cd _source
+python3 sync_guide.py ../../guidesti
+```
+
+`build.py` reconstruit l'ancienne annexe (avant 2026) : ne plus l'utiliser pour publier.
+
 | Fichier | Contenu |
 |---|---|
 | `annexe_origine/*.json` | Annexe officielle d'origine (définitions, attributs, syntaxes) |

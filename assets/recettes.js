@@ -117,7 +117,7 @@ section {
   height: 75%;
 }
 footer {
-  clear: both;          /* arrêt du flottement (hors annexe, nécessaire) */
+  clear: both;          /* arrêt du flottement */
   height: 10%;
   text-align: center;
 }`,
